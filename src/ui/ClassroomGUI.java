@@ -8,8 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import model.Classroom;
@@ -20,49 +25,139 @@ public class ClassroomGUI {
 	public ClassroomGUI(Classroom cr) {
 		classroom= cr;
 	}
+	private final ToggleGroup genderG= new ToggleGroup();
+	private final ToggleGroup careerG= new ToggleGroup();
 	
-	//login
+	//register
 	@FXML
 	FileChooser fileChooser;
 	
-	//main-pain
+	//mainPane
 	@FXML
 	private Pane mainPane;
 	
-	//Login
+	//register
 	@FXML
 	private DatePicker datePicker = new DatePicker();	
 	
-	//main-pane
+	//login
 	@FXML
 	private TextField txtUserName;
 
-	//main-pane
+	//login
 	@FXML
 	private TextField txtPassword;
 
-	//main-pane
+	//login
 	@FXML
 	private Button btnSingIn;
 
-	//main-pane
+	//login
 	@FXML
 	private Button btnLogIn;
 	
+	//register
+	@FXML
+	private TextField txtNewUserName;
 	
-	public void initializeLogIn() {
-		
+	//register
+	@FXML
+	private TextField txtNewPassword;
+
+	//register
+	@FXML
+	private Label lblFileDirector;
+
+	//register
+	@FXML
+	private RadioButton rbtnMale;
+
+	//register
+	@FXML
+	private RadioButton rbtnFemale;
+
+	//register
+	@FXML
+	private RadioButton rbtnOther;
+
+	//register
+	@FXML
+	private RadioButton rbtnSoftware;
+
+	//register
+	@FXML
+	private RadioButton rbtnTelematic;
+
+	//register
+	@FXML
+	private RadioButton rbtnIdustrial;
+
+	//register
+	@FXML
+	private  ComboBox cboxFavBrowser;
+
+	//register
+	@FXML
+	private Button btnBrowse;
+
+	
+	@FXML 
+	public void initialize() throws IOException {
+    
+
 		
 	}
-
+	
 	@FXML
-	public void LogIn(ActionEvent event) throws IOException{
+    public void reeeeeeee(ActionEvent event)throws IOException {
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("login.fxml"));
     	fxmlLoader.setController(this);
-    	Parent addContactPane = fxmlLoader.load();
-    	mainPane.getChildren().setAll(addContactPane);
+    	Parent login = fxmlLoader.load();
+    	mainPane.getChildren().setAll(login);
+    }
+
+	
+	
+	@FXML
+	public void loadLogin()throws IOException {
+		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("login.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent login = fxmlLoader.load();
+    	mainPane.getChildren().setAll(login);
+		
 	}
 
+	//goes from login to register
+	@FXML
+	public void register(ActionEvent event) throws IOException{
+		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("register.fxml"));
+    	fxmlLoader.setController(this);
+    	Parent register = fxmlLoader.load();
+    	mainPane.getChildren().setAll(register);
+    	cboxFavBrowser.getItems().addAll("adwad","asdawdaw","asdawdasdaw");
+    	rbtnMale = new RadioButton("Male");
+    	rbtnMale.setToggleGroup(genderG);
+    	
+
+    	rbtnFemale= new RadioButton("Female");
+    	rbtnFemale.setToggleGroup(genderG);
+
+    	rbtnOther= new RadioButton("Other");
+    	rbtnOther.setToggleGroup(genderG);
+
+    	rbtnSoftware= new RadioButton();
+    	rbtnSoftware.setToggleGroup(careerG);
+
+    	rbtnTelematic= new RadioButton();
+    	rbtnTelematic.setToggleGroup(careerG);
+
+    	rbtnIdustrial= new RadioButton();
+    	rbtnIdustrial.setToggleGroup(careerG);
+    	
+
+	}
+
+	//main-pane
 	@FXML
 	public void SingIn(ActionEvent event) {
 		datePicker.setEditable(true);
@@ -72,7 +167,7 @@ public class ClassroomGUI {
 	}
 	
 
-	
+	//solo cosa que quiero ver de la fecha del login
 	@FXML
 	public void showDate(ActionEvent event) {
 		datePicker.setEditable(true);

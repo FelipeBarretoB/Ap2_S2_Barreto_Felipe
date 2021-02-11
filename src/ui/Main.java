@@ -31,7 +31,7 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("a");
 		primaryStage.show();
-		
+		classroomGUI.loadLogin();
 		
 	}
 }

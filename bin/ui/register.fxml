@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="126.0" layoutY="77.0" text="Username:" />
+      <TextField fx:id="txtNewUserName" layoutX="218.0" layoutY="73.0" />
+      <TextField fx:id="txtNewPassword" layoutX="218.0" layoutY="108.0" />
+      <Label layoutX="120.0" layoutY="112.0" text="Password:" />
+      <Label layoutX="118.0" layoutY="142.0" text="Profile photo:" />
+      <Label fx:id="lblFileDirector" layoutX="225.0" layoutY="142.0" prefHeight="17.0" prefWidth="149.0" text="choose file" />
+      <RadioButton fx:id="rbtnMale" layoutX="215.0" layoutY="166.0" mnemonicParsing="false" text="Male" />
+      <RadioButton fx:id="rbtnFemale" layoutX="270.0" layoutY="166.0" mnemonicParsing="false" text="Female" />
+      <RadioButton fx:id="rbtnOther" layoutX="341.0" layoutY="166.0" mnemonicParsing="false" text="Other" />
+      <Label layoutX="118.0" layoutY="166.0" text="Gender:" />
+      <Label layoutX="120.0" layoutY="192.0" text="Career:" />
+      <RadioButton fx:id="rbtnSoftware" layoutX="213.0" layoutY="192.0" mnemonicParsing="false" text="Software Engineering" />
+      <RadioButton fx:id="rbtnTelematic" layoutX="210.0" layoutY="216.0" mnemonicParsing="false" text="Telematic Engineering" />
+      <RadioButton fx:id="rbtnIdustrial" layoutX="211.0" layoutY="241.0" mnemonicParsing="false" text="Industrial Engineering" />
+      <Label layoutX="115.0" layoutY="269.0" text="Birthday:" />
+      <DatePicker fx:id="datePicker" layoutX="212.0" layoutY="265.0" onAction="#showDate" />
+      <Label layoutX="113.0" layoutY="300.0" text="Favorite browser" />
+      <Label layoutX="237.0" layoutY="22.0" text="Join to Classroom">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="193.0" layoutY="42.0" text="Create your account">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="218.0" layoutY="339.0" mnemonicParsing="false" text="Sing in" />
+      <Button layoutX="303.0" layoutY="339.0" mnemonicParsing="false" text="Create account" />
+      <Button fx:id="btnBrowse" layoutX="399.0" layoutY="138.0" mnemonicParsing="false" text="Browse" />
+      <ComboBox fx:id="cboxFavBrowser" layoutX="217.0" layoutY="296.0" prefWidth="150.0" />
+   </children>
+</Pane>
