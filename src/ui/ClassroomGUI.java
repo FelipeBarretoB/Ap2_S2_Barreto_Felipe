@@ -21,25 +21,27 @@ import model.Classroom;
 public class ClassroomGUI {
 
 	private Classroom classroom;
-	
+
 	public ClassroomGUI(Classroom cr) {
 		classroom= cr;
 	}
-	private final ToggleGroup genderG= new ToggleGroup();
-	private final ToggleGroup careerG= new ToggleGroup();
-	
+	@FXML
+	private ToggleGroup genderG;
+	@FXML
+	private ToggleGroup careerG;
+
 	//register
 	@FXML
-	FileChooser fileChooser;
-	
+	private FileChooser fileChooser;
+
 	//mainPane
 	@FXML
 	private Pane mainPane;
-	
+
 	//register
 	@FXML
 	private DatePicker datePicker = new DatePicker();	
-	
+
 	//login
 	@FXML
 	private TextField txtUserName;
@@ -55,11 +57,11 @@ public class ClassroomGUI {
 	//login
 	@FXML
 	private Button btnLogIn;
-	
+
 	//register
 	@FXML
 	private TextField txtNewUserName;
-	
+
 	//register
 	@FXML
 	private TextField txtNewPassword;
@@ -94,68 +96,77 @@ public class ClassroomGUI {
 
 	//register
 	@FXML
-	private  ComboBox cboxFavBrowser;
+	private  ComboBox<String> cboxFavBrowser;
 
 	//register
 	@FXML
 	private Button btnBrowse;
 
-	
+
 	@FXML 
 	public void initialize() throws IOException {
-    
 
-		
+
+
 	}
-	
-	@FXML
-    public void reeeeeeee(ActionEvent event)throws IOException {
-		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("login.fxml"));
-    	fxmlLoader.setController(this);
-    	Parent login = fxmlLoader.load();
-    	mainPane.getChildren().setAll(login);
-    }
 
-	
-	
+	@FXML
+	public void reeeeeeee(ActionEvent event)throws IOException {
+		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("login.fxml"));
+		fxmlLoader.setController(this);
+		Parent login = fxmlLoader.load();
+		mainPane.getChildren().setAll(login);
+	}
+
+
+
 	@FXML
 	public void loadLogin()throws IOException {
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("login.fxml"));
-    	fxmlLoader.setController(this);
-    	Parent login = fxmlLoader.load();
-    	mainPane.getChildren().setAll(login);
-		
+		fxmlLoader.setController(this);
+		Parent login = fxmlLoader.load();
+		mainPane.getChildren().setAll(login);
+
 	}
 
 	//goes from login to register
 	@FXML
 	public void register(ActionEvent event) throws IOException{
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("register.fxml"));
-    	fxmlLoader.setController(this);
-    	Parent register = fxmlLoader.load();
-    	mainPane.getChildren().setAll(register);
-    	cboxFavBrowser.getItems().addAll("adwad","asdawdaw","asdawdasdaw");
-    	rbtnMale = new RadioButton("Male");
-    	rbtnMale.setToggleGroup(genderG);
-    	
+		fxmlLoader.setController(this);
+		Parent register = fxmlLoader.load();
+		mainPane.getChildren().setAll(register);
+		cboxFavBrowser.getItems().addAll("adwad","asdawdaw","asdawdasdaw");
+		rbtnMale = new RadioButton("Male");
+		rbtnMale.setToggleGroup(genderG);
 
-    	rbtnFemale= new RadioButton("Female");
-    	rbtnFemale.setToggleGroup(genderG);
 
-    	rbtnOther= new RadioButton("Other");
-    	rbtnOther.setToggleGroup(genderG);
+		rbtnFemale= new RadioButton("Female");
+		rbtnFemale.setToggleGroup(genderG);
 
-    	rbtnSoftware= new RadioButton();
-    	rbtnSoftware.setToggleGroup(careerG);
+		rbtnOther= new RadioButton("Other");
+		rbtnOther.setToggleGroup(genderG);
 
-    	rbtnTelematic= new RadioButton();
-    	rbtnTelematic.setToggleGroup(careerG);
+		rbtnSoftware= new RadioButton();
+		rbtnSoftware.setToggleGroup(careerG);
 
-    	rbtnIdustrial= new RadioButton();
-    	rbtnIdustrial.setToggleGroup(careerG);
-    	
+		rbtnTelematic= new RadioButton();
+		rbtnTelematic.setToggleGroup(careerG);
+
+		rbtnIdustrial= new RadioButton();
+		rbtnIdustrial.setToggleGroup(careerG);
+
 
 	}
+
+	
+	//Register
+	@FXML
+	public void creeateAccount(ActionEvent event) {
+		System.out.println("se preciono button ");
+		classroom.CreateUser(txtNewUserName.getText(), txtNewPassword.getText(),fileChooser.getInitialDirectory() , datePicker.getValue(), genderG.getSelectedToggle().toString(), careerG.getSelectedToggle().toString(), cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
+	}
+
 
 	//main-pane
 	@FXML
@@ -163,20 +174,20 @@ public class ClassroomGUI {
 		datePicker.setEditable(true);
 		LocalDate a= datePicker.getValue();
 		System.out.println("date "+a);
-		
+
 	}
-	
+
 
 	//solo cosa que quiero ver de la fecha del login
 	@FXML
 	public void showDate(ActionEvent event) {
 		datePicker.setEditable(true);
 		LocalDate date = datePicker.getValue();
-	    System.out.println("Selected date: " + date);
-	    
+		System.out.println("Selected date: " + date);
 
-	    
-	   
+
+
+
 	}
 
 
