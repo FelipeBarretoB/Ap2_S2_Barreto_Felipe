@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,12 +18,20 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import model.Career;
 import model.Classroom;
+import model.Gender;
+import model.UserAccount;
 public class ClassroomGUI {
 
 	private Classroom classroom;
@@ -71,28 +81,35 @@ public class ClassroomGUI {
 	@FXML
 	private Label lblFileDirector;
 
+	//register
 	@FXML
 	private RadioButton rbtnFemale;
 
+	//register
 	@FXML
 	private RadioButton rbtnMale;
 
-
+	//register
 	@FXML
 	private RadioButton rbtnOther;
 
+	//register
 	@FXML
 	private RadioButton rbtnSoftware;
 
+	//register
 	@FXML
 	private ToggleGroup genderG;
 
+	//register
 	@FXML
 	private ToggleGroup careerG;
 
+	//register
 	@FXML
 	private RadioButton rbtnTelematic;
 
+	//register
 	@FXML
 	private RadioButton rbtnIdustrial;
 
@@ -108,6 +125,32 @@ public class ClassroomGUI {
 	@FXML
 	private File file;
 
+	//account-list
+	@FXML
+	private ImageView IVprofileImage;
+
+	//account-list
+	@FXML
+	private Label txtviewUsername;
+	
+	//account-list
+    @FXML
+    private TableView<UserAccount> tvUserAccountList;
+    
+    @FXML
+    private TableColumn<UserAccount, String> usernameColumn;
+
+    @FXML
+    private TableColumn<UserAccount, Gender> genderColumn;
+
+    @FXML
+    private TableColumn<UserAccount, Career> careerColumn;
+
+    @FXML
+    private TableColumn<UserAccount, LocalDate> birthdayColumn;
+
+    @FXML
+    private TableColumn<UserAccount, String> browserColumn;
 
 
 
@@ -127,7 +170,7 @@ public class ClassroomGUI {
 	}
 
 
-
+	//logIn
 	@FXML
 	public void loadLogin()throws IOException {
 
@@ -145,7 +188,7 @@ public class ClassroomGUI {
 		fxmlLoader.setController(this);
 		Parent register = fxmlLoader.load();
 		mainPane.getChildren().setAll(register);
-		cboxFavBrowser.getItems().addAll("adwad","asdawdaw","asdawdasdaw");
+		cboxFavBrowser.getItems().addAll("FireFox","Chrome","Edge","Safari","Opera","Thor","Brave");
 
 
 
@@ -188,14 +231,7 @@ public class ClassroomGUI {
 
 
 		try {
-			classroom.CreateUser(
-					txtNewUserName.getText(),
-					txtNewPassword.getText(),
-					file , 
-					datePicker.getValue(), 
-					genderS,
-					careerS,
-					cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
+			classroom.CreateUser(txtNewUserName.getText(),txtNewPassword.getText(),file,datePicker.getValue(),genderS,careerS,cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Account created");
 			alert.setHeaderText("The new account has been created");
@@ -203,12 +239,13 @@ public class ClassroomGUI {
 		}catch(NullPointerException e) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Validation Error");
-			alert.setHeaderText("Youmust fill each field in the form");
+			alert.setHeaderText("You must fill each field in the form");
 			alert.showAndWait();
 		}
 
 	}
 
+	//register to logIn
 	@FXML
 	public void returnToLogIn(ActionEvent event)throws IOException {
 		loadLogin();
@@ -224,7 +261,7 @@ public class ClassroomGUI {
 		}
 		System.out.println(txtUserName.getText().toString());
 		if(classroom.signIn(txtUserName.getText().toString(),txtPassword.getText().toString() )) {
-			loadAccountlist();
+			loadAccountlist(classroom.signInC(txtUserName.getText().toString() ,txtPassword.getText().toString() ));
 		}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("log in incorrect");
@@ -242,14 +279,40 @@ public class ClassroomGUI {
 		LocalDate date = datePicker.getValue();
 	}
 
+	//LogIn to account-List
 	@FXML
-	public void loadAccountlist()throws IOException {
+	public void loadAccountlist(int c)throws IOException {
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("account-list.fxml"));
 		fxmlLoader.setController(this);
 		Parent loadAccountlist = fxmlLoader.load();
 		mainPane.getChildren().setAll(loadAccountlist);
+		txtviewUsername.setText(classroom.getUser(c).getUsername());
+		Image image= new Image(classroom.getUser(c).getPhoto().toURI().toString());
+		IVprofileImage.setImage(image);
+		loadTableView();
+
 
 	}
+	
+	
+	public void loadTableView() {
+		ObservableList<UserAccount> observableList;
+    	observableList = FXCollections.observableArrayList(classroom.getUsers());
+    	
+		tvUserAccountList.setItems(observableList);
+		usernameColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("username")); 
+		genderColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,Gender>("gender")); 
+		careerColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,Career>("career"));
+		birthdayColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,LocalDate>("date"));
+		browserColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("browser"));
+		
+		
+	}
 
+	//account-list to logIN
+    @FXML
+    void LogOut(ActionEvent event) throws IOException {
+    	loadLogin();
+    }
 
 }

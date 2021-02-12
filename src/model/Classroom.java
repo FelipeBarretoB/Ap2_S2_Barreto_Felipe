@@ -53,6 +53,27 @@ public class Classroom {
 	}
 	
 	
+	public int signInC(String username, String password) {
+		int x=0;
+		
+		for(int c=0; c<users.size();c++) {
+			System.out.println("loop");
+			if(username.equals(users.get(c).getUsername())) {
+				System.out.println("encontro user");
+				if(password.equals(users.get(c).getPassword())) {
+					x=c;
+				}
+				
+			}
+			
+		}
+		return x;
+	}
+	
+	public UserAccount getUser(int c) {
+		return users.get(c);
+	}
+	
 	public boolean empty() {
 		return users.isEmpty();
 	}

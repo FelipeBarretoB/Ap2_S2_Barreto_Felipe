@@ -45,7 +45,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="218.0" layoutY="339.0" mnemonicParsing="false" onAction="#returnToLogIn" text="Sing in" />
+      <Button layoutX="218.0" layoutY="339.0" mnemonicParsing="false" onAction="#returnToLogIn" text="Sign in" />
       <Button layoutX="303.0" layoutY="339.0" mnemonicParsing="false" onAction="#creeateAccount" text="Create account" />
       <Button fx:id="btnBrowse" layoutX="406.0" layoutY="138.0" mnemonicParsing="false" onAction="#fileBrowse" text="Browse" />
       <ComboBox fx:id="cboxFavBrowser" layoutX="217.0" layoutY="296.0" prefWidth="150.0" />
