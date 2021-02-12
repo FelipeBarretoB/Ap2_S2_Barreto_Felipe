@@ -27,7 +27,7 @@ public class Classroom {
 		
 	}
 	
-	public void CreateUser(String username, String password, File photo, LocalDate date, String genderS, String careerS,String browser) {
+	public void createUser(String username, String password, File photo, LocalDate date, String genderS, String careerS,String browser) {
 	    gender= Gender.valueOf(genderS.toUpperCase());
 		career= Career.valueOf(careerS.toUpperCase());
 		users.add(new UserAccount( username,  password,  photo,  date,  gender,  career, browser) );
@@ -39,9 +39,7 @@ public class Classroom {
 		boolean singin=false;
 		
 		for(int c=0; c<users.size();c++) {
-			System.out.println("loop");
 			if(username.equals(users.get(c).getUsername())) {
-				System.out.println("encontro user");
 				if(password.equals(users.get(c).getPassword())) {
 					singin=true;
 				}
@@ -57,9 +55,7 @@ public class Classroom {
 		int x=0;
 		
 		for(int c=0; c<users.size();c++) {
-			System.out.println("loop");
 			if(username.equals(users.get(c).getUsername())) {
-				System.out.println("encontro user");
 				if(password.equals(users.get(c).getPassword())) {
 					x=c;
 				}

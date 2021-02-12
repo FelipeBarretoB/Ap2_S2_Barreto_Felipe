@@ -1,7 +1,7 @@
 package ui;
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 
 import javafx.collections.FXCollections;
@@ -13,7 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -40,7 +40,7 @@ public class ClassroomGUI {
 		classroom= cr;
 	}
 
-
+	
 	//register
 	@FXML
 	private FileChooser fileChooser;
@@ -132,42 +132,27 @@ public class ClassroomGUI {
 	//account-list
 	@FXML
 	private Label txtviewUsername;
-	
+
 	//account-list
-    @FXML
-    private TableView<UserAccount> tvUserAccountList;
-    
-    @FXML
-    private TableColumn<UserAccount, String> usernameColumn;
-
-    @FXML
-    private TableColumn<UserAccount, Gender> genderColumn;
-
-    @FXML
-    private TableColumn<UserAccount, Career> careerColumn;
-
-    @FXML
-    private TableColumn<UserAccount, LocalDate> birthdayColumn;
-
-    @FXML
-    private TableColumn<UserAccount, String> browserColumn;
-
-
-
-	@FXML 
-	public void initialize() throws IOException {
-
-
-
-	}
-
 	@FXML
-	public void reeeeeeee(ActionEvent event)throws IOException {
-		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("login.fxml"));
-		fxmlLoader.setController(this);
-		Parent login = fxmlLoader.load();
-		mainPane.getChildren().setAll(login);
-	}
+	private TableView<UserAccount> tvUserAccountList;
+
+	//account-list
+	@FXML
+	private TableColumn<UserAccount, String> usernameColumn;
+	//account-list
+	@FXML
+	private TableColumn<UserAccount, Gender> genderColumn;
+	//account-list
+	@FXML
+	private TableColumn<UserAccount, Career> careerColumn;
+	//account-list
+	@FXML
+	private TableColumn<UserAccount, LocalDate> birthdayColumn;
+	//account-list
+	@FXML
+	private TableColumn<UserAccount, String> browserColumn;
+
 
 
 	//logIn
@@ -231,7 +216,7 @@ public class ClassroomGUI {
 
 
 		try {
-			classroom.CreateUser(txtNewUserName.getText(),txtNewPassword.getText(),file,datePicker.getValue(),genderS,careerS,cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
+			classroom.createUser(txtNewUserName.getText(),txtNewPassword.getText(),file,datePicker.getValue(),genderS,careerS,cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Account created");
 			alert.setHeaderText("The new account has been created");
@@ -272,11 +257,10 @@ public class ClassroomGUI {
 	}
 
 
-	//solo cosa que quiero ver de la fecha del login
+	//register
 	@FXML
 	public void showDate(ActionEvent event) {
 		datePicker.setEditable(true);
-		LocalDate date = datePicker.getValue();
 	}
 
 	//LogIn to account-List
@@ -293,26 +277,26 @@ public class ClassroomGUI {
 
 
 	}
-	
-	
+
+	//account-list
 	public void loadTableView() {
 		ObservableList<UserAccount> observableList;
-    	observableList = FXCollections.observableArrayList(classroom.getUsers());
-    	
+		observableList = FXCollections.observableArrayList(classroom.getUsers());
+
 		tvUserAccountList.setItems(observableList);
 		usernameColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("username")); 
 		genderColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,Gender>("gender")); 
 		careerColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,Career>("career"));
 		birthdayColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,LocalDate>("date"));
 		browserColumn.setCellValueFactory(new PropertyValueFactory<UserAccount,String>("browser"));
-		
-		
+
+
 	}
 
 	//account-list to logIN
-    @FXML
-    void LogOut(ActionEvent event) throws IOException {
-    	loadLogin();
-    }
+	@FXML
+	void LogOut(ActionEvent event) throws IOException {
+		loadLogin();
+	}
 
 }
