@@ -12,12 +12,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="126.0" layoutY="77.0" text="Username:" />
+      <Label layoutX="118.0" layoutY="77.0" text="Username:" />
       <TextField fx:id="txtNewUserName" layoutX="218.0" layoutY="73.0" />
       <TextField fx:id="txtNewPassword" layoutX="218.0" layoutY="108.0" />
       <Label layoutX="120.0" layoutY="112.0" text="Password:" />
       <Label layoutX="118.0" layoutY="142.0" text="Profile photo:" />
-      <Label fx:id="lblFileDirector" layoutX="225.0" layoutY="142.0" prefHeight="17.0" prefWidth="149.0" text="choose file" />
+      <Label fx:id="lblFileDirector" layoutX="205.0" layoutY="142.0" prefHeight="17.0" prefWidth="149.0" text="choose file" />
       <RadioButton fx:id="rbtnMale" layoutX="215.0" layoutY="166.0" mnemonicParsing="false" text="Male">
          <toggleGroup>
             <ToggleGroup fx:id="genderG" />
@@ -28,10 +28,10 @@
       <Label layoutX="120.0" layoutY="192.0" text="Career:" />
       <RadioButton fx:id="rbtnSoftware" layoutX="213.0" layoutY="192.0" mnemonicParsing="false" selected="true" text="Software Engineering">
          <toggleGroup>
-            <ToggleGroup fx:id="careeerG" />
+            <ToggleGroup fx:id="careerG" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="rbtnTelematic" layoutX="210.0" layoutY="216.0" mnemonicParsing="false" text="Telematic Engineering" toggleGroup="$careeerG" />
-      <RadioButton fx:id="rbtnIdustrial" layoutX="211.0" layoutY="241.0" mnemonicParsing="false" text="Industrial Engineering" toggleGroup="$careeerG" />
+      <RadioButton fx:id="rbtnTelematic" layoutX="210.0" layoutY="216.0" mnemonicParsing="false" text="Telematic Engineering" toggleGroup="$careerG" />
+      <RadioButton fx:id="rbtnIdustrial" layoutX="211.0" layoutY="241.0" mnemonicParsing="false" text="Industrial Engineering" toggleGroup="$careerG" />
       <Label layoutX="115.0" layoutY="269.0" text="Birthday:" />
       <DatePicker fx:id="datePicker" layoutX="212.0" layoutY="265.0" onAction="#showDate" />
       <Label layoutX="113.0" layoutY="300.0" text="Favorite browser" />
@@ -45,9 +45,9 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button layoutX="218.0" layoutY="339.0" mnemonicParsing="false" text="Sing in" />
+      <Button layoutX="218.0" layoutY="339.0" mnemonicParsing="false" onAction="#returnToLogIn" text="Sing in" />
       <Button layoutX="303.0" layoutY="339.0" mnemonicParsing="false" onAction="#creeateAccount" text="Create account" />
-      <Button fx:id="btnBrowse" layoutX="399.0" layoutY="138.0" mnemonicParsing="false" text="Browse" />
+      <Button fx:id="btnBrowse" layoutX="406.0" layoutY="138.0" mnemonicParsing="false" onAction="#fileBrowse" text="Browse" />
       <ComboBox fx:id="cboxFavBrowser" layoutX="217.0" layoutY="296.0" prefWidth="150.0" />
    </children>
 </Pane>

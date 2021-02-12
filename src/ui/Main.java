@@ -12,6 +12,7 @@ public class Main extends Application {
 	private ClassroomGUI classroomGUI;
 	private Classroom cr;
 	public Main() {
+		cr= new Classroom();
 		classroomGUI= new ClassroomGUI(cr);
 	}
 	

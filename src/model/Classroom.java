@@ -22,14 +22,39 @@ public class Classroom {
 		this.users = users;
 	}
 	
-	public Classroom() {}
+	public Classroom() {
+		users= new ArrayList<>();
+		
+	}
 	
 	public void CreateUser(String username, String password, File photo, LocalDate date, String genderS, String careerS,String browser) {
-	    gender= gender.valueOf(genderS.toUpperCase());
-		career= career.valueOf(careerS.toUpperCase());
+	    gender= Gender.valueOf(genderS.toUpperCase());
+		career= Career.valueOf(careerS.toUpperCase());
 		users.add(new UserAccount( username,  password,  photo,  date,  gender,  career, browser) );
+		
 	}
 	
 	
+	public boolean signIn(String username, String password) {
+		boolean singin=false;
+		
+		for(int c=0; c<users.size();c++) {
+			System.out.println("loop");
+			if(username.equals(users.get(c).getUsername())) {
+				System.out.println("encontro user");
+				if(password.equals(users.get(c).getPassword())) {
+					singin=true;
+				}
+				
+			}
+			
+		}
+		return singin;
+	}
+	
+	
+	public boolean empty() {
+		return users.isEmpty();
+	}
 	
 }

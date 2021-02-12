@@ -1,4 +1,5 @@
 package ui;
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -7,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -17,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.Classroom;
 public class ClassroomGUI {
 
@@ -25,10 +29,7 @@ public class ClassroomGUI {
 	public ClassroomGUI(Classroom cr) {
 		classroom= cr;
 	}
-	@FXML
-	private ToggleGroup genderG;
-	@FXML
-	private ToggleGroup careerG;
+
 
 	//register
 	@FXML
@@ -70,27 +71,28 @@ public class ClassroomGUI {
 	@FXML
 	private Label lblFileDirector;
 
-	//register
-	@FXML
-	private RadioButton rbtnMale;
-
-	//register
 	@FXML
 	private RadioButton rbtnFemale;
 
-	//register
+	@FXML
+	private RadioButton rbtnMale;
+
+
 	@FXML
 	private RadioButton rbtnOther;
 
-	//register
 	@FXML
 	private RadioButton rbtnSoftware;
 
-	//register
+	@FXML
+	private ToggleGroup genderG;
+
+	@FXML
+	private ToggleGroup careerG;
+
 	@FXML
 	private RadioButton rbtnTelematic;
 
-	//register
 	@FXML
 	private RadioButton rbtnIdustrial;
 
@@ -101,6 +103,12 @@ public class ClassroomGUI {
 	//register
 	@FXML
 	private Button btnBrowse;
+
+	//register
+	@FXML
+	private File file;
+
+
 
 
 	@FXML 
@@ -122,6 +130,7 @@ public class ClassroomGUI {
 
 	@FXML
 	public void loadLogin()throws IOException {
+
 		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("login.fxml"));
 		fxmlLoader.setController(this);
 		Parent login = fxmlLoader.load();
@@ -137,43 +146,88 @@ public class ClassroomGUI {
 		Parent register = fxmlLoader.load();
 		mainPane.getChildren().setAll(register);
 		cboxFavBrowser.getItems().addAll("adwad","asdawdaw","asdawdasdaw");
-		rbtnMale = new RadioButton("Male");
-		rbtnMale.setToggleGroup(genderG);
 
-
-		rbtnFemale= new RadioButton("Female");
-		rbtnFemale.setToggleGroup(genderG);
-
-		rbtnOther= new RadioButton("Other");
-		rbtnOther.setToggleGroup(genderG);
-
-		rbtnSoftware= new RadioButton();
-		rbtnSoftware.setToggleGroup(careerG);
-
-		rbtnTelematic= new RadioButton();
-		rbtnTelematic.setToggleGroup(careerG);
-
-		rbtnIdustrial= new RadioButton();
-		rbtnIdustrial.setToggleGroup(careerG);
 
 
 	}
 
-	
+	//register
+	@FXML
+	public void fileBrowse(ActionEvent event) {
+
+		fileChooser= new FileChooser();
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.*"), new FileChooser.ExtensionFilter("JPG", "*.jpg"), new FileChooser.ExtensionFilter("NEF", "*.nef") );
+		Stage stage=new Stage();
+		file= fileChooser.showOpenDialog(stage);
+		lblFileDirector.setText("Nombre "+file.getPath());
+
+	}
+
 	//Register
 	@FXML
 	public void creeateAccount(ActionEvent event) {
-		System.out.println("se preciono button ");
-		classroom.CreateUser(txtNewUserName.getText(), txtNewPassword.getText(),fileChooser.getInitialDirectory() , datePicker.getValue(), genderG.getSelectedToggle().toString(), careerG.getSelectedToggle().toString(), cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
+		String genderS="";
+		String careerS="";
+		if(rbtnFemale.isSelected()) {
+			genderS= "FEMALE";
+		}else if(rbtnMale.isSelected()) {
+			genderS= "MALE";
+		}else if(rbtnOther.isSelected()) {
+			genderS= "OTHER";
+		}
+
+
+
+		if(rbtnSoftware.isSelected()) {
+			careerS="SOFTWARE_ENGINEERING";	
+		}else if(rbtnTelematic.isSelected()) {
+			careerS="TELEMATIC_ENGINEERING";
+		}else if(rbtnIdustrial.isSelected()) {
+			careerS="INDUSTRIAL_ENGINEERING";
+		}
+
+
+		try {
+			classroom.CreateUser(
+					txtNewUserName.getText(),
+					txtNewPassword.getText(),
+					file , 
+					datePicker.getValue(), 
+					genderS,
+					careerS,
+					cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Account created");
+			alert.setHeaderText("The new account has been created");
+			alert.showAndWait();
+		}catch(NullPointerException e) {
+
+		}
+
 	}
+
+	@FXML
+	public void returnToLogIn(ActionEvent event)throws IOException {
+		loadLogin();
+	}
+
 
 
 	//main-pane
 	@FXML
 	public void SingIn(ActionEvent event) {
-		datePicker.setEditable(true);
-		LocalDate a= datePicker.getValue();
-		System.out.println("date "+a);
+		if(classroom.empty()) {
+			System.out.println(txtPassword.getText());
+		}
+		System.out.println(txtUserName.getText().toString());
+		if(classroom.signIn(txtUserName.getText().toString(),txtPassword.getText().toString() )) {
+			System.out.println("yes?");
+		}else {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("log in incorrect");
+			alert.setHeaderText("The username and password given are incorrect");
+			alert.showAndWait();
+		}
 
 	}
 
@@ -183,7 +237,7 @@ public class ClassroomGUI {
 	public void showDate(ActionEvent event) {
 		datePicker.setEditable(true);
 		LocalDate date = datePicker.getValue();
-		System.out.println("Selected date: " + date);
+
 
 
 
