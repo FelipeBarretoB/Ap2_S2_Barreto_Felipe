@@ -241,10 +241,8 @@ public class ClassroomGUI {
 	//main-pane
 	@FXML
 	public void SingIn(ActionEvent event) throws IOException{
-		if(classroom.empty()) {
-			System.out.println(txtPassword.getText());
-		}
-		System.out.println(txtUserName.getText().toString());
+	
+
 		if(classroom.signIn(txtUserName.getText().toString(),txtPassword.getText().toString() )) {
 			loadAccountlist(classroom.signInC(txtUserName.getText().toString() ,txtPassword.getText().toString() ));
 		}else {
