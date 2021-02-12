@@ -201,7 +201,10 @@ public class ClassroomGUI {
 			alert.setHeaderText("The new account has been created");
 			alert.showAndWait();
 		}catch(NullPointerException e) {
-
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Validation Error");
+			alert.setHeaderText("Youmust fill each field in the form");
+			alert.showAndWait();
 		}
 
 	}
@@ -215,13 +218,13 @@ public class ClassroomGUI {
 
 	//main-pane
 	@FXML
-	public void SingIn(ActionEvent event) {
+	public void SingIn(ActionEvent event) throws IOException{
 		if(classroom.empty()) {
 			System.out.println(txtPassword.getText());
 		}
 		System.out.println(txtUserName.getText().toString());
 		if(classroom.signIn(txtUserName.getText().toString(),txtPassword.getText().toString() )) {
-			System.out.println("yes?");
+			loadAccountlist();
 		}else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("log in incorrect");
@@ -237,10 +240,14 @@ public class ClassroomGUI {
 	public void showDate(ActionEvent event) {
 		datePicker.setEditable(true);
 		LocalDate date = datePicker.getValue();
+	}
 
-
-
-
+	@FXML
+	public void loadAccountlist()throws IOException {
+		FXMLLoader fxmlLoader= new FXMLLoader(getClass().getResource("account-list.fxml"));
+		fxmlLoader.setController(this);
+		Parent loadAccountlist = fxmlLoader.load();
+		mainPane.getChildren().setAll(loadAccountlist);
 
 	}
 
