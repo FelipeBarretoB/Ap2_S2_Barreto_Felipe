@@ -1,9 +1,11 @@
 package model;
 import java.io.File;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
-public class UserAccount {
+public class UserAccount implements Serializable {
+	public final static long serialVersionUID = 1;
 
 	private String username;
 	

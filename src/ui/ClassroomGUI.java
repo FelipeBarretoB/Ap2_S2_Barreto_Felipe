@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -38,6 +37,26 @@ public class ClassroomGUI {
 
 	public ClassroomGUI(Classroom cr) {
 		classroom= cr;
+		
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Load data");
+		alert.setHeaderText("The new account has been created");
+		alert.showAndWait();
+		
+		try {
+			classroom.loadData();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			alert.setContentText("The file does not exist");
+			alert.showAndWait();
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			alert.setContentText("The file is damaged");
+			alert.showAndWait();
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -175,8 +194,6 @@ public class ClassroomGUI {
 		mainPane.getChildren().setAll(register);
 		cboxFavBrowser.getItems().addAll("FireFox","Chrome","Edge","Safari","Opera","Thor","Brave");
 
-
-
 	}
 
 	//register
@@ -216,7 +233,12 @@ public class ClassroomGUI {
 
 
 		try {
-			classroom.createUser(txtNewUserName.getText(),txtNewPassword.getText(),file,datePicker.getValue(),genderS,careerS,cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
+			try {
+				classroom.createUser(txtNewUserName.getText(),txtNewPassword.getText(),file,datePicker.getValue(),genderS,careerS,cboxFavBrowser.getSelectionModel().getSelectedItem().toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Account created");
 			alert.setHeaderText("The new account has been created");
